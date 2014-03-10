@@ -6,6 +6,8 @@ public class Consult {
 
 	private String id;
 	
+	private Integer order;
+	
 	private Date dateConsult;
 	
 	private String firstName;
@@ -24,6 +26,14 @@ public class Consult {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public Integer getOrder() {
+		return order;
+	}
+
+	public void setOrder(Integer order) {
+		this.order = order;
 	}
 
 	public Date getDateConsult() {

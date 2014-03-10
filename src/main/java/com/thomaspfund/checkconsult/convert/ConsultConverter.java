@@ -14,6 +14,7 @@ public class ConsultConverter {
 		Consult consult = new Consult();
 		
 		consult.setId(((ObjectId)object.get("_id")).toStringMongod());
+		consult.setOrder((Integer) object.get("order"));
 		consult.setDateConsult((Date) object.get("dateConsult"));
 		consult.setFirstName((String) object.get("firstName"));
 		consult.setLastName((String) object.get("lastName"));
@@ -30,6 +31,7 @@ public class ConsultConverter {
 		if (consult.getId() != null) {
 			object.put("_id", new ObjectId(consult.getId()));
 		}
+		object.put("order",  consult.getOrder());
 		object.put("dateConsult", consult.getDateConsult());
 		object.put("firstName", consult.getFirstName());
 		object.put("lastName", consult.getLastName());
