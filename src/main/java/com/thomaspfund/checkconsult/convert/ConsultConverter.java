@@ -15,8 +15,11 @@ public class ConsultConverter {
 		
 		consult.setId(((ObjectId)object.get("_id")).toStringMongod());
 		consult.setDateConsult((Date) object.get("dateConsult"));
-		consult.setMontant((Double) object.get("montant"));
-		consult.setRabais((Double) object.get("rabais"));
+		consult.setFirstName((String) object.get("firstName"));
+		consult.setLastName((String) object.get("lastName"));
+		consult.setBirthDate((Date) object.get("birthDate"));
+		consult.setFullPrice((Double) object.get("fullPrice"));
+		consult.setRebate((Double) object.get("rebate"));
 		
 		return consult;
 	}
@@ -27,9 +30,12 @@ public class ConsultConverter {
 		if (consult.getId() != null) {
 			object.put("_id", new ObjectId(consult.getId()));
 		}
-		object.put("montant", consult.getMontant());
 		object.put("dateConsult", consult.getDateConsult());
-		object.put("rabais", consult.getRabais());
+		object.put("firstName", consult.getFirstName());
+		object.put("lastName", consult.getLastName());
+		object.put("birthDate", consult.getBirthDate());
+		object.put("fullPrice", consult.getFullPrice());
+		object.put("rebate", consult.getRebate());
 
 		return object;
 	}

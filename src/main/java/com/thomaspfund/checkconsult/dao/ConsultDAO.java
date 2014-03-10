@@ -24,7 +24,7 @@ public class ConsultDAO {
 	private DBCollection getCollection(MongoClient mongoClient)
 			throws UnknownHostException {
 
-		DB db = mongoClient.getDB("checkConsult");
+		DB db = mongoClient.getDB("factuLine");
 
 		return db.getCollection("consult");
 

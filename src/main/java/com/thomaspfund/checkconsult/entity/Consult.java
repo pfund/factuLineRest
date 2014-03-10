@@ -1,5 +1,6 @@
 package com.thomaspfund.checkconsult.entity;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import org.bson.types.ObjectId;
@@ -8,11 +9,17 @@ public class Consult {
 
 	private String id;
 	
-	private Double montant;
-	
 	private Date dateConsult;
 	
-	private Double rabais;
+	private String firstName;
+	
+	private String lastName;
+	
+	private Date birthDate;
+	
+	private Double fullPrice;
+	
+	private Double rebate;
 
 	public String getId() {
 		return id;
@@ -20,14 +27,6 @@ public class Consult {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public Double getMontant() {
-		return montant;
-	}
-
-	public void setMontant(Double montant) {
-		this.montant = montant;
 	}
 
 	public Date getDateConsult() {
@@ -38,13 +37,44 @@ public class Consult {
 		this.dateConsult = dateConsult;
 	}
 
-	public Double getRabais() {
-		return rabais;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setRabais(Double rabais) {
-		this.rabais = rabais;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-	
-	
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public Double getFullPrice() {
+		return fullPrice;
+	}
+
+	public void setFullPrice(Double fullPrice) {
+		this.fullPrice = fullPrice;
+	}
+
+	public Double getRebate() {
+		return rebate;
+	}
+
+	public void setRebate(Double rebate) {
+		this.rebate = rebate;
+	}
+
 }
