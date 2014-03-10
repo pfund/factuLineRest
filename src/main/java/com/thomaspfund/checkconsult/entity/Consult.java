@@ -1,9 +1,6 @@
 package com.thomaspfund.checkconsult.entity;
 
-import java.util.Calendar;
 import java.util.Date;
-
-import org.bson.types.ObjectId;
 
 public class Consult {
 

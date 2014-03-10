@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.thomaspfund</groupId>
-	<artifactId>checkConsult</artifactId>
+	<artifactId>factuLineRest</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>checkConsult Maven Webapp</name>
@@ -30,7 +30,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>checkConsult</finalName>
+		<finalName>factuLineRest</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
