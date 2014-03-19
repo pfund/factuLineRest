@@ -2,6 +2,7 @@ package com.thomaspfund.checkconsult.dao;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -30,7 +31,7 @@ public class ConsultDAO {
 
 	}
 
-	public Consult find(ObjectId id) throws UnknownHostException {
+	public Consult find(String id) throws UnknownHostException {
 		Consult consult = null;
 
 		MongoClient client = null;
@@ -39,7 +40,7 @@ public class ConsultDAO {
 			DBCollection collection = getCollection(client);
 
 			DBObject mongoConsult = collection.findOne(new BasicDBObject("_id",
-					id));
+					new ObjectId(id)));
 			if (mongoConsult != null) {
 				consult = ConsultConverter.getConsultFromMongo(mongoConsult);
 			}
@@ -87,14 +88,14 @@ public class ConsultDAO {
 		}
 	}
 
-	public void delete(Consult consult) throws UnknownHostException {
-		DBObject object = ConsultConverter.getMongoObjectFromConsult(consult);
-
+	public void delete(String id) throws UnknownHostException {
 		MongoClient client = null;
 		try {
 			client = getClient();
 			DBCollection collection = getCollection(client);
-			collection.remove(object);
+			DBObject mongoConsult = collection.findOne(new BasicDBObject("_id",
+					new ObjectId(id)));
+			collection.remove(mongoConsult);
 		} finally {
 			if (client != null) {
 				client.close();
@@ -120,6 +121,28 @@ public class ConsultDAO {
 			}
 		}
 		
+		return returnList;
+	}
+
+	public List<Consult> findByDateConsult(Date dateConsult) throws UnknownHostException {
+		List<Consult> returnList = new ArrayList();
+
+		MongoClient client = null;
+		try {
+			client = getClient();
+			DBCollection collection = getCollection(client);
+
+			DBCursor cursor = collection.find(new BasicDBObject("dateConsult", dateConsult));
+			
+			while (cursor.hasNext()) {
+				returnList.add(ConsultConverter.getConsultFromMongo(cursor.next()));
+			}
+		} finally {
+			if (client != null) {
+				client.close();
+			}
+		}
+
 		return returnList;
 	}
 
