@@ -125,14 +125,14 @@ public class ConsultDAO {
 	}
 
 	public List<Consult> findByDateConsult(Date dateConsult) throws UnknownHostException {
-		List<Consult> returnList = new ArrayList();
+		List<Consult> returnList = new ArrayList<>();
 
 		MongoClient client = null;
 		try {
 			client = getClient();
 			DBCollection collection = getCollection(client);
 
-			DBCursor cursor = collection.find(new BasicDBObject("dateConsult", dateConsult));
+			DBCursor cursor = collection.find(new BasicDBObject("dateConsult", dateConsult)).sort(new BasicDBObject("order", 1));
 			
 			while (cursor.hasNext()) {
 				returnList.add(ConsultConverter.getConsultFromMongo(cursor.next()));
