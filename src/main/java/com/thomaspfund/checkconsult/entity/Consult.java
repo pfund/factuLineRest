@@ -16,7 +16,7 @@ public class Consult {
 	
 	private Date birthDate;
 	
-	private Double fullPrice;
+	private Double consultationPrice;
 	
 	private Double rebate;
 
@@ -68,12 +68,12 @@ public class Consult {
 		this.birthDate = birthDate;
 	}
 
-	public Double getFullPrice() {
-		return fullPrice;
+	public Double getConsultationPrice() {
+		return consultationPrice;
 	}
 
-	public void setFullPrice(Double fullPrice) {
-		this.fullPrice = fullPrice;
+	public void setConsultationPrice(Double consultationPrice) {
+		this.consultationPrice = consultationPrice;
 	}
 
 	public Double getRebate() {
