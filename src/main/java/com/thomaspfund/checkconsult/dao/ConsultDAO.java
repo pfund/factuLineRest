@@ -72,7 +72,7 @@ public class ConsultDAO {
 		return ConsultConverter.getConsultFromMongo(mongoConsult);
 	}
 
-	public void update(Consult consult) throws UnknownHostException {
+	public Consult update(Consult consult) throws UnknownHostException {
 		DBObject object = ConsultConverter.getMongoObjectFromConsult(consult);
 
 		MongoClient client = null;
@@ -80,12 +80,13 @@ public class ConsultDAO {
 			client = getClient();
 			DBCollection collection = getCollection(client);
 			collection
-					.update(new BasicDBObject("_id", consult.getId()), object);
+					.update(new BasicDBObject("_id", new ObjectId(consult.getId())), object);
 		} finally {
 			if (client != null) {
 				client.close();
 			}
 		}
+		return ConsultConverter.getConsultFromMongo(object);
 	}
 
 	public void delete(String id) throws UnknownHostException {

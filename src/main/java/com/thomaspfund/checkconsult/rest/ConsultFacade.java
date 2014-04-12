@@ -88,10 +88,11 @@ public class ConsultFacade {
 		return dao.insert(consult);
 	}
 	
-	@PUT
-	public void update(Consult consult) throws UnknownHostException {
+	@PUT @Path("{id}")
+	@Produces({"application/json"})
+	public Consult update(Consult consult) throws UnknownHostException {
 		addHeaders();
-		dao.update(consult);
+		return dao.update(consult);
 	}
 
 	@DELETE
