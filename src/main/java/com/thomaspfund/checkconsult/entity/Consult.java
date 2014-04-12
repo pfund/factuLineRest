@@ -18,8 +18,14 @@ public class Consult {
 	
 	private Double consultationPrice;
 	
+	private Double materialPrice;
+	
+	private Double medicamentPrice;
+	
 	private Double rebate;
 
+	private String comment;
+	
 	public String getId() {
 		return id;
 	}
@@ -76,6 +82,22 @@ public class Consult {
 		this.consultationPrice = consultationPrice;
 	}
 
+	public Double getMaterialPrice() {
+		return materialPrice;
+	}
+
+	public void setMaterialPrice(Double materialPrice) {
+		this.materialPrice = materialPrice;
+	}
+
+	public Double getMedicamentPrice() {
+		return medicamentPrice;
+	}
+
+	public void setMedicamentPrice(Double medicamentPrice) {
+		this.medicamentPrice = medicamentPrice;
+	}
+
 	public Double getRebate() {
 		return rebate;
 	}
@@ -84,4 +106,12 @@ public class Consult {
 		this.rebate = rebate;
 	}
 
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	
 }

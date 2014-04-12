@@ -20,7 +20,10 @@ public class ConsultConverter {
 		consult.setLastName((String) object.get("lastName"));
 		consult.setBirthDate((Date) object.get("birthDate"));
 		consult.setConsultationPrice((Double) object.get("consultationPrice"));
+		consult.setMaterialPrice((Double) object.get("materialPrice"));
+		consult.setMedicamentPrice((Double) object.get("medicamentPrice"));
 		consult.setRebate((Double) object.get("rebate"));
+		consult.setComment((String) object.get("comment"));
 		
 		return consult;
 	}
@@ -37,7 +40,10 @@ public class ConsultConverter {
 		object.put("lastName", consult.getLastName());
 		object.put("birthDate", consult.getBirthDate());
 		object.put("consultationPrice", consult.getConsultationPrice());
+		object.put("materialPrice", consult.getMaterialPrice());
+		object.put("medicamentPrice", consult.getMedicamentPrice());
 		object.put("rebate", consult.getRebate());
+		object.put("comment", consult.getComment());
 
 		return object;
 	}
