@@ -16,20 +16,7 @@ import com.mongodb.MongoClient;
 import com.thomaspfund.checkconsult.convert.ConsultConverter;
 import com.thomaspfund.checkconsult.entity.Consult;
 
-public class ConsultDAO {
-
-	private MongoClient getClient() throws UnknownHostException {
-		return new MongoClient();
-	}
-
-	private DBCollection getCollection(MongoClient mongoClient)
-			throws UnknownHostException {
-
-		DB db = mongoClient.getDB("factuLine");
-
-		return db.getCollection("consult");
-
-	}
+public class ConsultDAO extends AbstractDAO {
 
 	public Consult find(String id) throws UnknownHostException {
 		Consult consult = null;

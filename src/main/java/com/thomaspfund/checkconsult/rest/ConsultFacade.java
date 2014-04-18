@@ -20,43 +20,15 @@ import com.thomaspfund.checkconsult.dao.ConsultDAO;
 import com.thomaspfund.checkconsult.entity.Consult;
 
 @Path("consult")
-public class ConsultFacade {
+public class ConsultFacade extends AbstractFacade {
 
-	  @Context
-	  private HttpServletResponse anotherServlerResponse;
-	  
 	private ConsultDAO dao = new ConsultDAO();
 	
-	@OPTIONS
-	@PermitAll
-	public void getOptions() {
-		anotherServlerResponse.addHeader("Access-Control-Allow-Origin", "*");
-		anotherServlerResponse.addHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
-		anotherServlerResponse.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-
-//		addHeaders();
-//		return Response.ok()
-//                .header("Access-Control-Allow-Origin", "*")
-//                .header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS")
-//                .header("Access-Control-Allow-Credentials", "false")
-//                .header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
-//                .build();
-	}
 	@OPTIONS
 	@Path("{id}")
 	@PermitAll
 	public void getOptionsForConsult() {
-		anotherServlerResponse.addHeader("Access-Control-Allow-Origin", "*");
-		anotherServlerResponse.addHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
-		anotherServlerResponse.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-
-//		addHeaders();
-//		return Response.ok()
-//                .header("Access-Control-Allow-Origin", "*")
-//                .header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS")
-//                .header("Access-Control-Allow-Credentials", "false")
-//                .header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
-//                .build();
+		getOptions();
 	}
 
 	
@@ -117,7 +89,4 @@ public class ConsultFacade {
 //		return "hi all...";
 //	}
 
-	private void addHeaders() {
-		anotherServlerResponse.addHeader("Access-Control-Allow-Origin", "*");
-	}
 }
