@@ -38,6 +38,12 @@ public class MonthsDAO extends AbstractDAO {
 			projectFields.put("materialPrice", "$materialPrice");
 			projectFields.put("medicamentPrice", "$medicamentPrice");
 			
+			DBObject sortFields = new BasicDBObject();
+			sortFields.put("month", Integer.valueOf(1));
+			sortFields.put("year", Integer.valueOf(1));
+			DBObject sort = new BasicDBObject();
+			sort.put("$sort", sortFields);
+			
 			DBObject project = new BasicDBObject();
 			project.put("$project", projectFields);	
 			
@@ -50,7 +56,7 @@ public class MonthsDAO extends AbstractDAO {
 			DBObject group = new BasicDBObject();
 			group.put("$group", groupFields);
 			
-			AggregationOutput aggOutput = collection.aggregate(project, group);
+			AggregationOutput aggOutput = collection.aggregate(project, sort, group);
 			//  db.consult.aggregate( [ 
 //				{ $project : { 
 //					key: {$month : "$dateConsult"},
