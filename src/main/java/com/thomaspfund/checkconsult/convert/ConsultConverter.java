@@ -19,13 +19,26 @@ public class ConsultConverter {
 		consult.setFirstName((String) object.get("firstName"));
 		consult.setLastName((String) object.get("lastName"));
 		consult.setBirthDate((Date) object.get("birthDate"));
-		consult.setConsultationPrice((Double) object.get("consultationPrice"));
-		consult.setMaterialPrice((Double) object.get("materialPrice"));
-		consult.setMedicamentPrice((Double) object.get("medicamentPrice"));
-		consult.setRebate((Double) object.get("rebate"));
+		consult.setConsultationPrice(getDouble(object.get("consultationPrice")));
+		consult.setMaterialPrice(getDouble(object.get("materialPrice")));
+		consult.setMedicamentPrice(getDouble(object.get("medicamentPrice")));
+		consult.setRebate(getDouble(object.get("rebate")));
 		consult.setComment((String) object.get("comment"));
 		
 		return consult;
+	}
+	
+	/**
+	 * Converts a mongodb object into a double (if possible). Sometimes we get Integers, so we convert them into doubles.
+	 * @param o the mongodb object that we want to convert into a double
+	 * @return the double value of the given o object
+	 */
+	private static Double getDouble(Object o) {
+		if (o instanceof Integer) {
+			return ((Integer) o).doubleValue();
+		} else {
+			return (Double) o;
+		}
 	}
 	
 	public static DBObject getMongoObjectFromConsult(Consult consult) {
