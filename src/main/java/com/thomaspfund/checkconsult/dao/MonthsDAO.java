@@ -4,17 +4,14 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bson.types.ObjectId;
-
 import com.mongodb.AggregationOutput;
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
-import com.thomaspfund.checkconsult.convert.ConsultConverter;
 import com.thomaspfund.checkconsult.convert.MonthResumeConverter;
 import com.thomaspfund.checkconsult.dto.MonthResume;
-import com.thomaspfund.checkconsult.entity.Consult;
 
 public class MonthsDAO extends AbstractDAO {
 
@@ -22,8 +19,6 @@ public class MonthsDAO extends AbstractDAO {
 		
 		List<MonthResume> resultList = new ArrayList<>();
 		
-		Consult consult = null;
-
 		MongoClient client = null;
 		try {
 			client = getClient();
@@ -38,6 +33,14 @@ public class MonthsDAO extends AbstractDAO {
 			projectFields.put("materialPrice", "$materialPrice");
 			projectFields.put("medicamentPrice", "$medicamentPrice");
 			
+			BasicDBList subtractList = new BasicDBList();
+			subtractList.add(Integer.valueOf(1));
+			subtractList.add("$rebate");
+			DBObject ratio = new BasicDBObject();
+			ratio.put("$subtract", subtractList);
+			
+			projectFields.put("ratio", ratio);
+			
 			DBObject sortFields = new BasicDBObject();
 			sortFields.put("month", Integer.valueOf(1));
 			sortFields.put("year", Integer.valueOf(1));
@@ -47,9 +50,16 @@ public class MonthsDAO extends AbstractDAO {
 			DBObject project = new BasicDBObject();
 			project.put("$project", projectFields);	
 			
+			DBObject consultationPriceWithRebate = new BasicDBObject();
+			BasicDBList multiplyList = new BasicDBList();
+			multiplyList.add("$consultationPrice");
+			multiplyList.add("$ratio");
+			consultationPriceWithRebate.put("$multiply", multiplyList);
+			
+			
 			DBObject groupFields = new BasicDBObject();
 			groupFields.put("_id", "$key");
-			groupFields.put("consultationPrice", new BasicDBObject("$sum", "$consultationPrice"));
+			groupFields.put("consultationPrice", new BasicDBObject("$sum", consultationPriceWithRebate));
 			groupFields.put("materialPrice", new BasicDBObject("$sum", "$materialPrice"));
 			groupFields.put("medicamentPrice", new BasicDBObject("$sum", "$medicamentPrice"));
 
