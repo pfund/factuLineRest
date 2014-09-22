@@ -9,27 +9,46 @@ import com.mongodb.MongoClientURI;
 
 public abstract class AbstractDAO {
 	private static String OPENSHIFT_MONGODB_DB_URL = null;
+	private static String OPENSHIFT_APP_NAME = null;
 	
 	static {
-		String url = System.getProperty("OPENSHIFT_MONGODB_DB_URL");
-		if (url == null) {
-			url = System.getenv("OPENSHIFT_MONGODB_DB_URL");
-		}
-		OPENSHIFT_MONGODB_DB_URL = url;
+		OPENSHIFT_MONGODB_DB_URL = getSystemPropertyOrEnv("OPENSHIFT_MONGODB_DB_URL");
+		OPENSHIFT_APP_NAME = getSystemPropertyOrEnv("OPENSHIFT_APP_NAME");
 	}
-
+	
+	/**
+	 * Get the system property (or the environment property if system property is not found)
+	 * @param propertyName the property name we are looking for
+	 * @return the property value (can be null if none is found)
+	 */
+	private static String getSystemPropertyOrEnv(String propertyName) {
+		String propertyValue = System.getProperty(propertyName);
+		if (propertyValue == null) {
+			propertyValue = System.getenv(propertyName);
+		}
+		return propertyValue;
+	}
+	
+	/**
+	 * Gets a new MongoClient
+	 * @return a new MongoClient
+	 * @throws UnknownHostException
+	 */
     MongoClient getClient() throws UnknownHostException {
-    	System.out.println("url: "+OPENSHIFT_MONGODB_DB_URL);
     	MongoClientURI uri = new MongoClientURI(OPENSHIFT_MONGODB_DB_URL);
-//    	MongoClientURI uri = new MongoClientURI("mongodb://localhost:27017/");
 		return new MongoClient(uri);
 	}
 
+    /**
+     * Gets the DBCollection for the 'consult' collection using the given MongoClient.
+     * @param mongoClient
+     * @return the DBCollection for the 'consult' collection
+     * @throws UnknownHostException
+     */
     DBCollection getCollection(MongoClient mongoClient)
 			throws UnknownHostException {
 
-		DB db = mongoClient.getDB("wildfly8");
-//		DB db = mongoClient.getDB("factuLine");
+		DB db = mongoClient.getDB(OPENSHIFT_APP_NAME);
 		return db.getCollection("consult");
 
 	}
