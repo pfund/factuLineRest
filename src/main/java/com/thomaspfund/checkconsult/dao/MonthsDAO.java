@@ -2,6 +2,7 @@ package com.thomaspfund.checkconsult.dao;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.mongodb.AggregationOutput;
@@ -41,12 +42,6 @@ public class MonthsDAO extends AbstractDAO {
 			
 			projectFields.put("ratio", ratio);
 			
-			DBObject sortFields = new BasicDBObject();
-			sortFields.put("month", Integer.valueOf(1));
-			sortFields.put("year", Integer.valueOf(1));
-			DBObject sort = new BasicDBObject();
-			sort.put("$sort", sortFields);
-			
 			DBObject project = new BasicDBObject();
 			project.put("$project", projectFields);	
 			
@@ -65,8 +60,15 @@ public class MonthsDAO extends AbstractDAO {
 
 			DBObject group = new BasicDBObject();
 			group.put("$group", groupFields);
-			
-			AggregationOutput aggOutput = collection.aggregate(project, sort, group);
+
+			DBObject sortFields = new BasicDBObject();
+			sortFields.put("_id.year", Integer.valueOf(1));
+			sortFields.put("_id.month", Integer.valueOf(1));
+			DBObject sort = new BasicDBObject();
+			sort.put("$sort", sortFields);
+
+			List<DBObject> pipeline = Arrays.asList(project, group, sort); 
+			AggregationOutput aggOutput = collection.aggregate(pipeline);
 			//  db.consult.aggregate( [ 
 //				{ $project : { 
 //					key: {$month : "$dateConsult"},
@@ -81,12 +83,6 @@ public class MonthsDAO extends AbstractDAO {
 			for (DBObject result : aggOutput.results()) {
 				resultList.add(MonthResumeConverter.getMonthResume(result));
 			}
-//			collection.aggregate(firstOp, additionalOps)
-//			DBObject mongoConsult = collection.findOne(new BasicDBObject("_id",
-//					new ObjectId(id)));
-//			if (mongoConsult != null) {
-//				consult = ConsultConverter.getConsultFromMongo(mongoConsult);
-//			}
 		} finally {
 			if (client != null) {
 				client.close();
