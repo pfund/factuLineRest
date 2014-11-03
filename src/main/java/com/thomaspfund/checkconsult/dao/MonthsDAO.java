@@ -23,7 +23,7 @@ public class MonthsDAO extends AbstractDAO {
 		MongoClient client = null;
 		try {
 			client = getClient();
-			DBCollection collection = getCollection(client);
+			DBCollection collection = super.getCollection(client, "consult");
 
 			DBObject projectFields = new BasicDBObject("_id", 0);
 			DBObject keyObject = new BasicDBObject();

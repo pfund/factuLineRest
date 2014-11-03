@@ -17,55 +17,57 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 
 import com.thomaspfund.checkconsult.convert.ConsultConverter;
+import com.thomaspfund.checkconsult.convert.OperationConverter;
 import com.thomaspfund.checkconsult.dao.EntityDAO;
 import com.thomaspfund.checkconsult.entity.Consult;
+import com.thomaspfund.checkconsult.entity.Operation;
 
-@Path("consult")
-public class ConsultFacade extends AbstractFacade {
+@Path("operation")
+public class OperationFacade extends AbstractFacade {
 
-	private EntityDAO<Consult> dao = new EntityDAO(new ConsultConverter());
+	private EntityDAO<Operation> dao = new EntityDAO(new OperationConverter());
 	
 	@OPTIONS
 	@Path("{id}")
 	@PermitAll
-	public void getOptionsForConsult() {
+	public void getOptionsForOperation() {
 		getOptions();
 	}
 
 	
 	@GET
 	@Produces({"application/json"})
-	public List<Consult> findAll() throws UnknownHostException {
+	public List<Operation> findAll() throws UnknownHostException {
 		addHeaders();
 		return dao.findAll();
 	}
 	
 	@GET @Path("{id}")
 	@Produces({"application/json"})
-	public Consult find(@PathParam("id") String id) throws UnknownHostException {
+	public Operation find(@PathParam("id") String id) throws UnknownHostException {
 		addHeaders();
 		return dao.find(id);
 	}
 	
-	@GET @Path("getByDateConsult/{dateConsult}")
+	@GET @Path("getByDateOperation/{dateOperation}")
 	@Produces({"application/json"})
-	public List<Consult> getByDateConsult(@PathParam("dateConsult") Date dateConsult) throws UnknownHostException {
+	public List<Operation> getByDateOperation(@PathParam("dateOperation") Date dateOperation) throws UnknownHostException {
 		addHeaders();
-		return dao.findByDateConsult(dateConsult);
+		return dao.findByDateOperation(dateOperation);
 	}
 
 	@POST
 	@Produces({"application/json"})
-	public Consult create(Consult consult) throws UnknownHostException {
+	public Operation create(Operation operation) throws UnknownHostException {
 		addHeaders();
-		return dao.insert(consult);
+		return dao.insert(operation);
 	}
 	
 	@PUT @Path("{id}")
 	@Produces({"application/json"})
-	public Consult update(Consult consult) throws UnknownHostException {
+	public Operation update(Operation operation) throws UnknownHostException {
 		addHeaders();
-		return dao.update(consult);
+		return dao.update(operation);
 	}
 
 	@DELETE

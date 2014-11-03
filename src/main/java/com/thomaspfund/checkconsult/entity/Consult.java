@@ -2,7 +2,7 @@ package com.thomaspfund.checkconsult.entity;
 
 import java.util.Date;
 
-public class Consult {
+public class Consult implements MongoEntity {
 
 	private String id;
 	
@@ -25,6 +25,10 @@ public class Consult {
 	private Double rebate;
 
 	private String comment;
+	
+	public String getCollection() {
+		return "consult";
+	}
 	
 	public String getId() {
 		return id;

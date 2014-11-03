@@ -7,7 +7,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import com.thomaspfund.checkconsult.dao.ConsultDAO;
+import com.thomaspfund.checkconsult.dao.EntityDAO;
 import com.thomaspfund.checkconsult.dao.MonthsDAO;
 import com.thomaspfund.checkconsult.dto.MonthResume;
 

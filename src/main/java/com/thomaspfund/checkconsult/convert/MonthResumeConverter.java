@@ -6,7 +6,6 @@ import com.thomaspfund.checkconsult.dto.MonthResume;
 public class MonthResumeConverter {
 
 	public static MonthResume getMonthResume(DBObject result) {
-		// TODO Auto-generated method stub
 		MonthResume resume = new MonthResume();
 		
 		DBObject key = (DBObject) result.get("_id");

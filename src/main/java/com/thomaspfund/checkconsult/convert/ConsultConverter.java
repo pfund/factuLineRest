@@ -8,9 +8,14 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.thomaspfund.checkconsult.entity.Consult;
 
-public class ConsultConverter {
+public class ConsultConverter implements Converter<Consult> {
 
-	public static Consult getConsultFromMongo(DBObject object) {
+	public String getCollectionName() {
+		return "consult";
+	}
+	
+	@Override
+	public Consult getFromMongo(DBObject object) {
 		Consult consult = new Consult();
 		
 		consult.setId(((ObjectId)object.get("_id")).toStringMongod());
@@ -41,7 +46,7 @@ public class ConsultConverter {
 		}
 	}
 	
-	public static DBObject getMongoObjectFromConsult(Consult consult) {
+	public DBObject getMongoObject(Consult consult) {
 		DBObject object = new BasicDBObject();
 		
 		if (consult.getId() != null) {
@@ -60,4 +65,5 @@ public class ConsultConverter {
 
 		return object;
 	}
+
 }

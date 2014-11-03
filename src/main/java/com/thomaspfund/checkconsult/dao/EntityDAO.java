@@ -14,12 +14,26 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.thomaspfund.checkconsult.convert.ConsultConverter;
+import com.thomaspfund.checkconsult.convert.Converter;
 import com.thomaspfund.checkconsult.entity.Consult;
+import com.thomaspfund.checkconsult.entity.MongoEntity;
 
-public class ConsultDAO extends AbstractDAO {
+public class EntityDAO<T extends MongoEntity> extends AbstractDAO {
+	
+	private Converter<T> converter;
+	
+	public EntityDAO(Converter<T> converter) {
+		this.converter = converter;
+	}
+	
+    private DBCollection getCollection(MongoClient mongoClient)
+			throws UnknownHostException {
+    	return super.getCollection(mongoClient, converter.getCollectionName());
+    }
 
-	public Consult find(String id) throws UnknownHostException {
-		Consult consult = null;
+
+	public T find(String id) throws UnknownHostException {
+		T consult = null;
 
 		MongoClient client = null;
 		try {
@@ -29,7 +43,7 @@ public class ConsultDAO extends AbstractDAO {
 			DBObject mongoConsult = collection.findOne(new BasicDBObject("_id",
 					new ObjectId(id)));
 			if (mongoConsult != null) {
-				consult = ConsultConverter.getConsultFromMongo(mongoConsult);
+				consult = converter.getFromMongo(mongoConsult);
 			}
 		} finally {
 			if (client != null) {
@@ -40,9 +54,9 @@ public class ConsultDAO extends AbstractDAO {
 		return consult;
 	}
 
-	public Consult insert(Consult consult) throws UnknownHostException {
-		DBObject mongoConsult = ConsultConverter
-				.getMongoObjectFromConsult(consult);
+	public T insert(T consult) throws UnknownHostException {
+		DBObject mongoConsult = converter
+				.getMongoObject(consult);
 
 		MongoClient client = null;
 		try {
@@ -56,11 +70,11 @@ public class ConsultDAO extends AbstractDAO {
 			}
 		}
 
-		return ConsultConverter.getConsultFromMongo(mongoConsult);
+		return converter.getFromMongo(mongoConsult);
 	}
 
-	public Consult update(Consult consult) throws UnknownHostException {
-		DBObject object = ConsultConverter.getMongoObjectFromConsult(consult);
+	public T update(T consult) throws UnknownHostException {
+		DBObject object = converter.getMongoObject(consult);
 
 		MongoClient client = null;
 		try {
@@ -73,7 +87,7 @@ public class ConsultDAO extends AbstractDAO {
 				client.close();
 			}
 		}
-		return ConsultConverter.getConsultFromMongo(object);
+		return converter.getFromMongo(object);
 	}
 
 	public void delete(String id) throws UnknownHostException {
@@ -91,8 +105,8 @@ public class ConsultDAO extends AbstractDAO {
 		}
 	}
 
-	public List<Consult> findAll() throws UnknownHostException {
-		List<Consult> returnList = new ArrayList<>();
+	public List<T> findAll() throws UnknownHostException {
+		List<T> returnList = new ArrayList<>();
 		
 		MongoClient client = null;
 		try {
@@ -101,7 +115,7 @@ public class ConsultDAO extends AbstractDAO {
 			DBCursor cursor = collection.find();
 			
 			while (cursor.hasNext()) {
-				returnList.add(ConsultConverter.getConsultFromMongo(cursor.next()));
+				returnList.add(converter.getFromMongo(cursor.next()));
 			}
 		} finally {
 			if (client != null) {
@@ -112,18 +126,26 @@ public class ConsultDAO extends AbstractDAO {
 		return returnList;
 	}
 
-	public List<Consult> findByDateConsult(Date dateConsult) throws UnknownHostException {
-		List<Consult> returnList = new ArrayList<>();
+	public List<T> findByDateConsult(Date dateConsult) throws UnknownHostException {
+		return findByDate(dateConsult, "dateConsult");
+	}
+	
+	public List<T> findByDateOperation(Date dateOperation) throws UnknownHostException {
+		return findByDate(dateOperation, "dateOperation");
+	}
+	
+	public List<T> findByDate(Date dateConsult, String dateField) throws UnknownHostException {
+		List<T> returnList = new ArrayList<>();
 
 		MongoClient client = null;
 		try {
 			client = getClient();
 			DBCollection collection = getCollection(client);
 
-			DBCursor cursor = collection.find(new BasicDBObject("dateConsult", dateConsult)).sort(new BasicDBObject("order", 1));
+			DBCursor cursor = collection.find(new BasicDBObject(dateField, dateConsult)).sort(new BasicDBObject("order", 1));
 			
 			while (cursor.hasNext()) {
-				returnList.add(ConsultConverter.getConsultFromMongo(cursor.next()));
+				returnList.add(converter.getFromMongo(cursor.next()));
 			}
 		} finally {
 			if (client != null) {
@@ -133,5 +155,5 @@ public class ConsultDAO extends AbstractDAO {
 
 		return returnList;
 	}
-
+	
 }
