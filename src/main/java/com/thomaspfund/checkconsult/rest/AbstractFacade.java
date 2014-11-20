@@ -18,7 +18,7 @@ public abstract class AbstractFacade {
 		anotherServlerResponse.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	}
 
-	void addHeaders() {
+	protected void addHeaders() {
 		anotherServlerResponse.addHeader("Access-Control-Allow-Origin", "*");
 	}
 

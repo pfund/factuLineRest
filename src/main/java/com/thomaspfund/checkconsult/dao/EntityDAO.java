@@ -8,14 +8,11 @@ import java.util.List;
 import org.bson.types.ObjectId;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
-import com.thomaspfund.checkconsult.convert.ConsultConverter;
 import com.thomaspfund.checkconsult.convert.Converter;
-import com.thomaspfund.checkconsult.entity.Consult;
 import com.thomaspfund.checkconsult.entity.MongoEntity;
 
 public class EntityDAO<T extends MongoEntity> extends AbstractDAO {

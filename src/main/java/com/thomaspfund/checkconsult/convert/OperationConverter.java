@@ -6,7 +6,6 @@ import org.bson.types.ObjectId;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
-import com.thomaspfund.checkconsult.entity.Consult;
 import com.thomaspfund.checkconsult.entity.Operation;
 
 public class OperationConverter implements Converter<Operation> {
@@ -29,7 +28,7 @@ public class OperationConverter implements Converter<Operation> {
 		operation.setAssistantOneAmount(getDouble(object.get("assistantOneAmount")));
 		operation.setAssistantTwo((String) object.get("assistantTwo"));
 		operation.setAssistantTwoAmount(getDouble(object.get("assistantTwoAmount")));
-		operation.setPayementRecieved((Boolean) object.get("payementRecieved"));
+		operation.setPaymentRecieved((Boolean) object.get("paymentRecieved"));
 		operation.setAssistantsPaid((Boolean) object.get("assistantsPaid"));
 		
 		return operation;
@@ -63,7 +62,7 @@ public class OperationConverter implements Converter<Operation> {
 		object.put("assistantOneAmount", operation.getAssistantOneAmount());
 		object.put("assistantTwo", operation.getAssistantTwo());
 		object.put("assistantTwoAmount", operation.getAssistantTwoAmount());
-		object.put("payementRecieved", operation.getPayementRecieved());
+		object.put("paymentRecieved", operation.getPaymentRecieved());
 		object.put("assistantsPaid", operation.getAssistantsPaid());
 
 		return object;

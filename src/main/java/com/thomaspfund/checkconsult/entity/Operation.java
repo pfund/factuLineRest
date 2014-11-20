@@ -24,7 +24,7 @@ public class Operation implements MongoEntity {
 	
 	private Double assistantTwoAmount;
 	
-	private Boolean payementRecieved;
+	private Boolean paymentRecieved;
 	
 	private Boolean assistantsPaid;
 
@@ -108,12 +108,12 @@ public class Operation implements MongoEntity {
 		this.assistantTwoAmount = assistantTwoAmount;
 	}
 
-	public Boolean getPayementRecieved() {
-		return payementRecieved;
+	public Boolean getPaymentRecieved() {
+		return paymentRecieved;
 	}
 
-	public void setPayementRecieved(Boolean payementRecieved) {
-		this.payementRecieved = payementRecieved;
+	public void setPaymentRecieved(Boolean payementRecieved) {
+		this.paymentRecieved = payementRecieved;
 	}
 
 	public Boolean getAssistantsPaid() {

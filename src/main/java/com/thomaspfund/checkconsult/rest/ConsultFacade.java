@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.security.PermitAll;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.OPTIONS;
@@ -14,7 +13,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 
 import com.thomaspfund.checkconsult.convert.ConsultConverter;
 import com.thomaspfund.checkconsult.dao.EntityDAO;
@@ -23,7 +21,7 @@ import com.thomaspfund.checkconsult.entity.Consult;
 @Path("consult")
 public class ConsultFacade extends AbstractFacade {
 
-	private EntityDAO<Consult> dao = new EntityDAO(new ConsultConverter());
+	private EntityDAO<Consult> dao = new EntityDAO<>(new ConsultConverter());
 	
 	@OPTIONS
 	@Path("{id}")
@@ -61,7 +59,7 @@ public class ConsultFacade extends AbstractFacade {
 		return dao.insert(consult);
 	}
 	
-	@PUT @Path("{id}")
+	@PUT
 	@Produces({"application/json"})
 	public Consult update(Consult consult) throws UnknownHostException {
 		addHeaders();
@@ -76,18 +74,4 @@ public class ConsultFacade extends AbstractFacade {
 		dao.delete(id);
 	}
 	
-
-//	@GET
-//	@Produces({"application/json"})
-//	public String getAll() {
-//		Consult consult = new Consult();
-//		consult.setDateConsult(new Date());
-//		consult.setMontant(1234.5d);
-//		consult.setRabais(0d);
-//		
-//		consultDao.insert(consult);
-//		
-//		return "hi all...";
-//	}
-
 }
