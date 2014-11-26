@@ -10,8 +10,10 @@ import com.thomaspfund.checkconsult.entity.Consult;
 
 public class ConsultConverter implements Converter<Consult> {
 
+	public static String CONSULT_COLLECTION_NAME = "consult";
+	
 	public String getCollectionName() {
-		return "consult";
+		return CONSULT_COLLECTION_NAME;
 	}
 	
 	@Override

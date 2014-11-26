@@ -10,8 +10,10 @@ import com.thomaspfund.checkconsult.entity.Operation;
 
 public class OperationConverter implements Converter<Operation> {
 
+	public static String OPERATION_COLLECTION_NAME = "operation";
+	
 	public String getCollectionName() {
-		return "operation";
+		return OPERATION_COLLECTION_NAME;
 	}
 	
 	@Override

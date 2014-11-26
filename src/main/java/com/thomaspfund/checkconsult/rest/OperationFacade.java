@@ -1,7 +1,9 @@
 package com.thomaspfund.checkconsult.rest;
 
 import java.net.UnknownHostException;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.annotation.security.PermitAll;
@@ -45,11 +47,11 @@ public class OperationFacade extends AbstractFacade {
 		return dao.find(id);
 	}
 	
-	@GET @Path("getByDateOperation/{dateOperation}")
+	@GET @Path("getOperationsInMonth/{dateOperation}")
 	@Produces({"application/json"})
-	public List<Operation> getByDateOperation(@PathParam("dateOperation") Date dateOperation) throws UnknownHostException {
+	public List<Operation> getOperationsInMonth(@PathParam("dateOperation") Date dateOperation) throws UnknownHostException {
 		addHeaders();
-		return dao.findByDateOperation(dateOperation);
+		return dao.findOperationsInMonth(dateOperation);
 	}
 
 	@POST

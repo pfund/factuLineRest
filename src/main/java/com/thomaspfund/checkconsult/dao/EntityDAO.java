@@ -2,7 +2,9 @@ package com.thomaspfund.checkconsult.dao;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -127,8 +129,43 @@ public class EntityDAO<T extends MongoEntity> extends AbstractDAO {
 		return findByDate(dateConsult, "dateConsult");
 	}
 	
-	public List<T> findByDateOperation(Date dateOperation) throws UnknownHostException {
-		return findByDate(dateOperation, "dateOperation");
+	public List<T> findOperationsInMonth(Date dateOperation) throws UnknownHostException {
+		
+		Calendar firstDayOfMonth = new GregorianCalendar();
+		firstDayOfMonth.setTime(dateOperation);
+		firstDayOfMonth.set(Calendar.DAY_OF_MONTH, 1);
+		firstDayOfMonth.getTime(); // TODO refactor to java 8 datetime
+		
+		Calendar firstDayOfNextMonth = new GregorianCalendar();
+		firstDayOfNextMonth.setTime(dateOperation);
+		firstDayOfNextMonth.set(Calendar.DAY_OF_MONTH, 1);
+		firstDayOfNextMonth.add(Calendar.MONTH, 1);
+		
+		List<T> returnList = new ArrayList<>();
+
+		MongoClient client = null;
+		try {
+			client = getClient();
+			DBCollection collection = getCollection(client);
+			
+			DBObject dateQuery = new BasicDBObject();
+			dateQuery.put("$gte", firstDayOfMonth.getTime());
+			dateQuery.put("$lt", firstDayOfNextMonth.getTime());
+			
+			DBObject query = new BasicDBObject("dateOperation", dateQuery);
+			
+			DBCursor cursor = collection.find(query).sort(new BasicDBObject("dateOperation", 1));
+			
+			while (cursor.hasNext()) {
+				returnList.add(converter.getFromMongo(cursor.next()));
+			}
+		} finally {
+			if (client != null) {
+				client.close();
+			}
+		}
+
+		return returnList;
 	}
 	
 	public List<T> findByDate(Date dateConsult, String dateField) throws UnknownHostException {
