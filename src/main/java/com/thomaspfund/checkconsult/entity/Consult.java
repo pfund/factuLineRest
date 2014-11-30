@@ -26,10 +26,6 @@ public class Consult implements MongoEntity {
 
 	private String comment;
 	
-	public String getCollection() {
-		return "consult";
-	}
-	
 	public String getId() {
 		return id;
 	}
