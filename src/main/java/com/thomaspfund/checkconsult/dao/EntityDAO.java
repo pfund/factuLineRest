@@ -129,7 +129,15 @@ public class EntityDAO<T extends MongoEntity> extends AbstractDAO {
 		return findByDate(dateConsult, "dateConsult");
 	}
 	
+	public List<T> findAssistancesInMonth(Date dateAssistance) throws UnknownHostException {
+		return findEntitiesInMonth("dateAssistance", dateAssistance);
+	}
+	
 	public List<T> findOperationsInMonth(Date dateOperation) throws UnknownHostException {
+		return findEntitiesInMonth("dateOperation", dateOperation);
+	}
+	
+	public List<T> findEntitiesInMonth(String mongoFieldName, Date dateOperation) throws UnknownHostException {
 		
 		Calendar firstDayOfMonth = new GregorianCalendar();
 		firstDayOfMonth.setTime(dateOperation);
@@ -152,9 +160,9 @@ public class EntityDAO<T extends MongoEntity> extends AbstractDAO {
 			dateQuery.put("$gte", firstDayOfMonth.getTime());
 			dateQuery.put("$lt", firstDayOfNextMonth.getTime());
 			
-			DBObject query = new BasicDBObject("dateOperation", dateQuery);
+			DBObject query = new BasicDBObject(mongoFieldName, dateQuery);
 			
-			DBCursor cursor = collection.find(query).sort(new BasicDBObject("dateOperation", 1));
+			DBCursor cursor = collection.find(query).sort(new BasicDBObject(mongoFieldName, 1));
 			
 			while (cursor.hasNext()) {
 				returnList.add(converter.getFromMongo(cursor.next()));

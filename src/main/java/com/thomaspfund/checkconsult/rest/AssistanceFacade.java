@@ -14,14 +14,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import com.thomaspfund.checkconsult.convert.OperationConverter;
+import com.thomaspfund.checkconsult.convert.AssistanceConverter;
 import com.thomaspfund.checkconsult.dao.EntityDAO;
-import com.thomaspfund.checkconsult.entity.Operation;
+import com.thomaspfund.checkconsult.entity.Assistance;
 
-@Path("operation")
-public class OperationFacade extends AbstractFacade {
+@Path("assistance")
+public class AssistanceFacade extends AbstractFacade {
 
-	private EntityDAO<Operation> dao = new EntityDAO<>(new OperationConverter());
+	private EntityDAO<Assistance> dao = new EntityDAO<>(new AssistanceConverter());
 	
 	@OPTIONS
 	@Path("{id}")
@@ -33,37 +33,37 @@ public class OperationFacade extends AbstractFacade {
 	
 	@GET
 	@Produces({"application/json"})
-	public List<Operation> findAll() throws UnknownHostException {
+	public List<Assistance> findAll() throws UnknownHostException {
 		addHeaders();
 		return dao.findAll();
 	}
 	
 	@GET @Path("{id}")
 	@Produces({"application/json"})
-	public Operation find(@PathParam("id") String id) throws UnknownHostException {
+	public Assistance find(@PathParam("id") String id) throws UnknownHostException {
 		addHeaders();
 		return dao.find(id);
 	}
 	
-	@GET @Path("getOperationsInMonth/{dateOperation}")
+	@GET @Path("getAssistancesInMonth/{dateAssistance}")
 	@Produces({"application/json"})
-	public List<Operation> getOperationsInMonth(@PathParam("dateOperation") Date dateOperation) throws UnknownHostException {
+	public List<Assistance> getAssistancesInMonth(@PathParam("dateAssistance") Date dateAssistance) throws UnknownHostException {
 		addHeaders();
-		return dao.findOperationsInMonth(dateOperation);
+		return dao.findAssistancesInMonth(dateAssistance);
 	}
 
 	@POST
 	@Produces({"application/json"})
-	public Operation create(Operation operation) throws UnknownHostException {
+	public Assistance create(Assistance assistance) throws UnknownHostException {
 		addHeaders();
-		return dao.insert(operation);
+		return dao.insert(assistance);
 	}
 	
 	@PUT
 	@Produces({"application/json"})
-	public Operation update(Operation operation) throws UnknownHostException {
+	public Assistance update(Assistance assistance) throws UnknownHostException {
 		addHeaders();
-		return dao.update(operation);
+		return dao.update(assistance);
 	}
 
 	@DELETE
