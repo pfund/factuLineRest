@@ -36,7 +36,7 @@ public class MonthOperationsDAO extends AbstractDAO {
 			projectFields.put("assistantTwoAmount", "$assistantTwoAmount");
 			
 			BasicDBList conditionAssistantsPaidList = new BasicDBList();
-			conditionAssistantsPaidList.add("$assistantsPaid");
+			conditionAssistantsPaidList.add("$assistantsPaidDate");
 			conditionAssistantsPaidList.add(1);
 			conditionAssistantsPaidList.add(0);
 			projectFields.put("numberAssistantPaid", new BasicDBObject("$cond", conditionAssistantsPaidList));
@@ -63,7 +63,7 @@ public class MonthOperationsDAO extends AbstractDAO {
 			projectFields.put("numberAssistedOperations", new BasicDBObject("$cond", conditionNumberAssistedList));
 			
 			BasicDBList conditionPaymentsRecievedList = new BasicDBList();
-			conditionPaymentsRecievedList.add("$paymentRecieved");
+			conditionPaymentsRecievedList.add("$paymentRecievedDate");
 			conditionPaymentsRecievedList.add(1);
 			conditionPaymentsRecievedList.add(0);
 			projectFields.put("numberPaymentsRecieved", new BasicDBObject("$cond", conditionPaymentsRecievedList));

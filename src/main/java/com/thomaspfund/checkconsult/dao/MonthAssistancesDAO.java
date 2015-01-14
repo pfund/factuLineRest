@@ -33,15 +33,11 @@ public class MonthAssistancesDAO extends AbstractDAO {
 			projectFields.put("key", keyObject);
 			projectFields.put("amount", "$amount");
 			
-			BasicDBList amountGtList = new BasicDBList();
-			amountGtList.add("$amount");
-			amountGtList.add(0);
-			
-			BasicDBList conditionNumberAmountsList = new BasicDBList();
-			conditionNumberAmountsList.add(new BasicDBObject("$gt", amountGtList));
-			conditionNumberAmountsList.add(1);
-			conditionNumberAmountsList.add(0);
-			projectFields.put("numberPaidAssistances", new BasicDBObject("$cond", conditionNumberAmountsList));
+			BasicDBList conditionPaidDateList = new BasicDBList();
+			conditionPaidDateList.add("$paidDate");
+			conditionPaidDateList.add(1);
+			conditionPaidDateList.add(0);
+			projectFields.put("numberPaidAssistances", new BasicDBObject("$cond", conditionPaidDateList));
 			
 			DBObject project = new BasicDBObject();
 			project.put("$project", projectFields);	

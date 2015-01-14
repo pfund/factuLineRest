@@ -27,6 +27,7 @@ public class AssistanceConverter implements Converter<Assistance> {
 		assistance.setFirstName((String) object.get("firstName"));
 		assistance.setLastName((String) object.get("lastName"));
 		assistance.setAmount(getDouble(object.get("amount")));
+		assistance.setPaidDate((Date) object.get("paidDate"));
 		
 		return assistance;
 	}
@@ -55,6 +56,7 @@ public class AssistanceConverter implements Converter<Assistance> {
 		object.put("firstName", assistance.getFirstName());
 		object.put("lastName", assistance.getLastName());
 		object.put("amount", assistance.getAmount());
+		object.put("paidDate", assistance.getPaidDate());
 
 		return object;
 	}

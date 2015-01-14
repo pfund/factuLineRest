@@ -24,9 +24,9 @@ public class Operation implements MongoEntity {
 	
 	private Double assistantTwoAmount;
 	
-	private Boolean paymentRecieved;
+	private Date paymentRecievedDate;
 	
-	private Boolean assistantsPaid;
+	private Date assistantsPaidDate;
 
 	public String getId() {
 		return id;
@@ -108,20 +108,20 @@ public class Operation implements MongoEntity {
 		this.assistantTwoAmount = assistantTwoAmount;
 	}
 
-	public Boolean getPaymentRecieved() {
-		return paymentRecieved;
+	public Date getPaymentRecievedDate() {
+		return paymentRecievedDate;
 	}
 
-	public void setPaymentRecieved(Boolean payementRecieved) {
-		this.paymentRecieved = payementRecieved;
+	public void setPaymentRecievedDate(Date paymentRecievedDate) {
+		this.paymentRecievedDate = paymentRecievedDate;
 	}
 
-	public Boolean getAssistantsPaid() {
-		return assistantsPaid;
+	public Date getAssistantsPaidDate() {
+		return assistantsPaidDate;
 	}
 
-	public void setAssistantsPaid(Boolean assistantsPaid) {
-		this.assistantsPaid = assistantsPaid;
+	public void setAssistantsPaidDate(Date assistantsPaidDate) {
+		this.assistantsPaidDate = assistantsPaidDate;
 	}
 	
 }

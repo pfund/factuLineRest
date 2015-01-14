@@ -15,6 +15,8 @@ public class Assistance implements MongoEntity {
 	private String lastName;
 	
 	private Double amount;
+	
+	private Date paidDate;
 
 	public String getId() {
 		return id;
@@ -63,6 +65,13 @@ public class Assistance implements MongoEntity {
 	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
-	
 
+	public Date getPaidDate() {
+		return paidDate;
+	}
+
+	public void setPaidDate(Date paidDate) {
+		this.paidDate = paidDate;
+	}
+	
 }
