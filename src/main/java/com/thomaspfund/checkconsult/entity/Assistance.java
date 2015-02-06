@@ -14,9 +14,15 @@ public class Assistance implements MongoEntity {
 	
 	private String lastName;
 	
+	private String operationType;
+	
+	private String operationHospital;
+	
 	private Double amount;
 	
 	private Date paidDate;
+	
+	private String comment;
 
 	public String getId() {
 		return id;
@@ -58,6 +64,22 @@ public class Assistance implements MongoEntity {
 		this.lastName = lastName;
 	}
 
+	public String getOperationType() {
+		return operationType;
+	}
+
+	public void setOperationType(String operationType) {
+		this.operationType = operationType;
+	}
+
+	public String getOperationHospital() {
+		return operationHospital;
+	}
+
+	public void setOperationHospital(String operationHospital) {
+		this.operationHospital = operationHospital;
+	}
+
 	public Double getAmount() {
 		return amount;
 	}
@@ -72,6 +94,14 @@ public class Assistance implements MongoEntity {
 
 	public void setPaidDate(Date paidDate) {
 		this.paidDate = paidDate;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	
 }

@@ -24,6 +24,7 @@ public class OperationConverter implements Converter<Operation> {
 		operation.setDateOperation((Date) object.get("dateOperation"));
 		operation.setFirstName((String) object.get("firstName"));
 		operation.setLastName((String) object.get("lastName"));
+		operation.setOperationType((String) object.get("operationType"));
 		operation.setOperationHospital((String) object.get("operationHospital"));
 		operation.setAmount(getDouble(object.get("amount")));
 		operation.setAssistantOne((String) object.get("assistantOne"));
@@ -32,6 +33,7 @@ public class OperationConverter implements Converter<Operation> {
 		operation.setAssistantTwoAmount(getDouble(object.get("assistantTwoAmount")));
 		operation.setPaymentRecievedDate((Date) object.get("paymentRecievedDate"));
 		operation.setAssistantsPaidDate((Date) object.get("assistantsPaidDate"));
+		operation.setComment((String) object.get("comment"));
 		
 		return operation;
 	}
@@ -58,6 +60,7 @@ public class OperationConverter implements Converter<Operation> {
 		object.put("dateOperation", operation.getDateOperation());
 		object.put("firstName", operation.getFirstName());
 		object.put("lastName", operation.getLastName());
+		object.put("operationType", operation.getOperationType());
 		object.put("operationHospital", operation.getOperationHospital());
 		object.put("amount", operation.getAmount());
 		object.put("assistantOne", operation.getAssistantOne());
@@ -66,6 +69,7 @@ public class OperationConverter implements Converter<Operation> {
 		object.put("assistantTwoAmount", operation.getAssistantTwoAmount());
 		object.put("paymentRecievedDate", operation.getPaymentRecievedDate());
 		object.put("assistantsPaidDate", operation.getAssistantsPaidDate());
+		object.put("comment", operation.getComment());
 
 		return object;
 	}
