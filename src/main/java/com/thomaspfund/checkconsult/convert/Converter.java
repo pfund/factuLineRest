@@ -4,9 +4,9 @@ import com.mongodb.DBObject;
 
 public interface Converter<T> {
 
-	public String getCollectionName();
+	String getCollectionName();
 	
-	public T getFromMongo(DBObject object);
+	T getFromMongo(DBObject object);
 	
-	public DBObject getMongoObject(T consult);
+	DBObject getMongoObject(T consult);
 }

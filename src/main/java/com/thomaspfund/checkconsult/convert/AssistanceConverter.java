@@ -7,7 +7,6 @@ import org.bson.types.ObjectId;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.thomaspfund.checkconsult.entity.Assistance;
-import com.thomaspfund.checkconsult.entity.Operation;
 
 public class AssistanceConverter implements Converter<Assistance> {
 

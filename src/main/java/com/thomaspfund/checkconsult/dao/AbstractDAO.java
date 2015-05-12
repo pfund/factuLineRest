@@ -43,10 +43,8 @@ public abstract class AbstractDAO {
      * Gets the DBCollection for the 'consult' collection using the given MongoClient.
      * @param mongoClient
      * @return the DBCollection for the 'consult' collection
-     * @throws UnknownHostException
      */
-    DBCollection getCollection(MongoClient mongoClient, String collectionName)
-			throws UnknownHostException {
+    DBCollection getCollection(MongoClient mongoClient, String collectionName) {
 
 		DB db = mongoClient.getDB(OPENSHIFT_APP_NAME);
 		return db.getCollection(collectionName);

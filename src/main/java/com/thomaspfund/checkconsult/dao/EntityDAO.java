@@ -25,8 +25,7 @@ public class EntityDAO<T extends MongoEntity> extends AbstractDAO {
 		this.converter = converter;
 	}
 	
-    private DBCollection getCollection(MongoClient mongoClient)
-			throws UnknownHostException {
+    private DBCollection getCollection(MongoClient mongoClient) {
     	return super.getCollection(mongoClient, converter.getCollectionName());
     }
 
