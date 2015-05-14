@@ -141,12 +141,15 @@ public class EntityDAO<T extends MongoEntity> extends AbstractDAO {
 		Calendar firstDayOfMonth = new GregorianCalendar();
 		firstDayOfMonth.setTime(dateOperation);
 		firstDayOfMonth.set(Calendar.DAY_OF_MONTH, 1);
+		firstDayOfMonth.set(Calendar.HOUR_OF_DAY, 12);	// Fix time problem
+		firstDayOfMonth.add(Calendar.DAY_OF_YEAR, -1);	// Fix time problem : this takes the day before but at 12:00
 		firstDayOfMonth.getTime(); // TODO refactor to java 8 datetime
 		
 		Calendar firstDayOfNextMonth = new GregorianCalendar();
 		firstDayOfNextMonth.setTime(dateOperation);
 		firstDayOfNextMonth.set(Calendar.DAY_OF_MONTH, 1);
 		firstDayOfNextMonth.add(Calendar.MONTH, 1);
+		firstDayOfNextMonth.set(Calendar.HOUR_OF_DAY, 12);	// Fix time bug
 		
 		List<T> returnList = new ArrayList<>();
 
