@@ -26,11 +26,18 @@ public class MonthOperationsDAO extends AbstractDAO {
 			client = getClient();
 			DBCollection collection = super.getCollection(client, OperationConverter.OPERATION_COLLECTION_NAME);
 
+			DBObject project0Fields = new BasicDBObject();
 			BasicDBList add2HoursList = new BasicDBList();
 			add2HoursList.add("$dateOperation");
 			add2HoursList.add(2 * 60 * 60 * 1_000);
 			DBObject add2Hours = new BasicDBObject("$add", add2HoursList);
-			DBObject newDateOperation = new BasicDBObject("dateOperation", add2Hours);
+//			DBObject newDateOperation = new BasicDBObject("dateOperation", add2Hours);
+			project0Fields.put("dateOperation", add2Hours);
+			project0Fields.put("amount", "$amount");
+			project0Fields.put("assistantOneAmount", "$assistantOneAmount");
+			project0Fields.put("assistantTwoAmount", "$assistantTwoAmount");
+			project0Fields.put("paymentRecievedDate", "$paymentRecievedDate");
+			project0Fields.put("assistantsPaidDate", "$assistantsPaidDate");
 
 			DBObject projectFields = new BasicDBObject("_id", 0);
 			DBObject keyObject = new BasicDBObject();
@@ -40,7 +47,7 @@ public class MonthOperationsDAO extends AbstractDAO {
 			projectFields.put("amount", "$amount");
 			projectFields.put("assistantOneAmount", "$assistantOneAmount");
 			projectFields.put("assistantTwoAmount", "$assistantTwoAmount");
-			
+
 			BasicDBList conditionAssistantsPaidList = new BasicDBList();
 			conditionAssistantsPaidList.add("$assistantsPaidDate");
 			conditionAssistantsPaidList.add(1);
@@ -75,7 +82,7 @@ public class MonthOperationsDAO extends AbstractDAO {
 			projectFields.put("numberPaymentsRecieved", new BasicDBObject("$cond", conditionPaymentsRecievedList));
 
 			DBObject project0 = new BasicDBObject();
-			project0.put("$project", newDateOperation);
+			project0.put("$project", project0Fields);
 			
 			DBObject project = new BasicDBObject();
 			project.put("$project", projectFields);	

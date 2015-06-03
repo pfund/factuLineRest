@@ -26,11 +26,15 @@ public class MonthAssistancesDAO extends AbstractDAO {
 			client = getClient();
 			DBCollection collection = super.getCollection(client, AssistanceConverter.ASSISTANCE_COLLECTION_NAME);
 
+			DBObject project0Fields = new BasicDBObject();
 			BasicDBList add2HoursList = new BasicDBList();
 			add2HoursList.add("$dateAssistance");
 			add2HoursList.add(2 * 60 * 60 * 1_000);
 			DBObject add2Hours = new BasicDBObject("$add", add2HoursList);
-			DBObject newDateAssistance = new BasicDBObject("dateAssistance", add2Hours);
+//			DBObject newDateAssistance = new BasicDBObject("dateAssistance", add2Hours);
+			project0Fields.put("dateAssistance", add2Hours);
+			project0Fields.put("amount", "$amount");
+			project0Fields.put("paidDate", "$paidDate");
 			
 			DBObject projectFields = new BasicDBObject("_id", 0);
 			DBObject keyObject = new BasicDBObject();
@@ -46,7 +50,7 @@ public class MonthAssistancesDAO extends AbstractDAO {
 			projectFields.put("numberPaidAssistances", new BasicDBObject("$cond", conditionPaidDateList));
 			
 			DBObject project0 = new BasicDBObject();
-			project0.put("$project", newDateAssistance);
+			project0.put("$project", project0Fields);
 			
 			DBObject project = new BasicDBObject();
 			project.put("$project", projectFields);	
